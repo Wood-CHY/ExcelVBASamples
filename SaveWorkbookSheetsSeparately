@@ -1,0 +1,26 @@
+# Description
+# Save all of the sheets in a workbook as separate Excel files.
+
+# Source
+# https://superuser.com/questions/561923/how-can-one-split-an-excel-xlsx-file-that-contains-multiple-sheets-into-sep
+
+# Tips to get started
+# Needed to save the file locally first.  Wouldn't run from Teams.
+# Copy code below into a VBA Module in the workbook you want to save the sheets.  Then run manually.
+
+# Code
+Sub CreateNewWBS()
+Dim wbThis As Workbook
+Dim wbNew As Workbook
+Dim ws As Worksheet
+Dim strFilename As String
+
+    Set wbThis = ThisWorkbook
+    For Each ws In wbThis.Worksheets
+        strFilename = wbThis.Path & "/" & ws.Name
+        ws.Copy
+        Set wbNew = ActiveWorkbook
+        wbNew.SaveAs strFilename
+        wbNew.Close
+    Next ws
+End Sub
